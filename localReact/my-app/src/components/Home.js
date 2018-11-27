@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 
-export default class Header extends Component {
+import PropTypes from 'prop-types';
+
+export default class Home extends Component {
   render() {
-    console.log(this.props)
+    console.log(this);
+    console.log(this.props);
     return (
       <div className="container">
         <div className="row">
@@ -14,9 +17,16 @@ export default class Header extends Component {
                      {this.props.user.hobbies.map((hobby,i)=><li key={i}>{hobby}</li>)}
                    </ul>
                 </div>
+                <div>{this.props.children}</div>
               </div>
         </div>
       </div>
     );
   }
+}
+
+Home.propTypes={
+  name:PropTypes.string,
+  age:PropTypes.number,
+  user:PropTypes.object
 }
