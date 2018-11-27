@@ -8,7 +8,7 @@ class App extends Component {
       <div className="container">
             <div className="row">
                <div className="col-xs-1 col-xs-offset-11">
-                  <Header/>
+                  <Home/>
                </div>
             </div>
             <div className="row">
@@ -18,7 +18,7 @@ class App extends Component {
             </div>
             <div className="row">
                <div className="col-xs-1 col-xs-offset-11">
-                  <Home/>
+                  <Header/>
                </div>
             </div>
       </div>
