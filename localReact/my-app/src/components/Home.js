@@ -11,7 +11,8 @@ export default class Home extends Component {
     //this.age=this.props.age;
     this.state={
       age:props.initialAge,
-      status:0
+      status:0,
+      homeLink:"Changed Link"
     }
     setTimeout(()=>{
       this.setState({
@@ -27,6 +28,14 @@ export default class Home extends Component {
       age:this.state.age+3
     })
   }
+
+  handleGreet(){
+    this.props.greet(this.state.age)
+  }
+
+  onChangeLink(){
+    this.props.changeLink(this.state.homeLink);
+  }
   render() {
     console.log(this);
     console.log(this.props);
@@ -39,6 +48,12 @@ export default class Home extends Component {
                  {/** this.onMakeOlder不要加括号，因为()代表执行，这里我们只想要函数传过来*/}
                 {/* <button className="btn btn-primary" onClick={this.onMakeOlder.bind(this)}>Make me older</button> */}
                 <button className="btn btn-primary" onClick={()=>{this.onMakeOlder()}}>Make me older</button>
+                <br/>
+                <hr/>
+                <button onClick={this.handleGreet.bind(this)} className="btn btn-primary">Greet</button>
+                <br/>
+                <hr/>
+                <button onClick={this.onChangeLink.bind(this)} className="btn btn-primary">Change Link</button>
               </div>
         </div>
       </div>
@@ -50,4 +65,5 @@ Home.propTypes={
   name:PropTypes.string,
   age:PropTypes.number,
   user:PropTypes.object,
+  greet:PropTypes.func
 }
