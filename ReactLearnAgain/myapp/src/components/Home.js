@@ -12,7 +12,9 @@ export default class Home extends Component {
     super(props);
     this.state={
       age:props.initialAge,
-      status:0
+      status:0,
+      homeLink:props.initialName,
+      //initialName:props.initialName  加上这个默认值，input居然不能编辑了
     }
     setTimeout(()=>{
       this.setState({
@@ -30,6 +32,15 @@ export default class Home extends Component {
     //这里是从父组件传递过来的方法
     this.props.greet(this.state.age);
   }
+  onChangeLink(){
+    this.props.changeLink(this.state.homeLink);
+  }
+
+  onHandleChange(event){
+    this.setState({
+      homeLink:event.target.value
+    })
+  }
   render() {
     console.log(this);
     return (
@@ -42,6 +53,12 @@ export default class Home extends Component {
                   <hr/>
                   {/* <button onClick={this.props.greet} className="btn btn-primary">Greet</button> */}
                   <button onClick={this.handleGreet.bind(this)} className="btn btn-primary">Greet</button>
+                  <hr/>
+                  <input type="text" 
+                         defaultValue={this.props.initialName} 
+                         value={this.state.initialName} 
+                         onChange={(event)=>this.onHandleChange(event)}/>
+                  <button onClick={this.onChangeLink.bind(this)} className="btn btn-primary">Changed Header Link</button>
               </div>
           </div>
       </div>
@@ -53,5 +70,6 @@ Home.propTypes={
   name:PropTypes.string,
   age:PropTypes.number,
   user:PropTypes.object,
-  greet:PropTypes.func
+  greet:PropTypes.func,
+  initialName:PropTypes.string
 }
