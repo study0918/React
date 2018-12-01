@@ -10,10 +10,11 @@ export default class Home extends Component {
      * props是从父对象传递过来的
      */
     super(props);
-    console.log(props);
     this.state={
       age:props.initialAge,
-      status:0
+      status:0,
+      homeLink:props.initialName,
+      //initialName:props.initialName  加上这个默认值，input居然不能编辑了
     }
     setTimeout(()=>{
       this.setState({
@@ -26,7 +27,20 @@ export default class Home extends Component {
       age:this.state.age+3
     })
   }
-  
+  //将子组件的数据传递给父组件
+  handleGreet(){
+    //这里是从父组件传递过来的方法
+    this.props.greet(this.state.age);
+  }
+  onChangeLink(){
+    this.props.changeLink(this.state.homeLink);
+  }
+
+  onHandleChange(event){
+    this.setState({
+      homeLink:event.target.value
+    })
+  }
   render() {
     console.log(this);
     return (
@@ -34,8 +48,17 @@ export default class Home extends Component {
           <div className="row">
               <div className="col-xs-1 col-xs-offset-11">
                   <div>Your name is {this.props.name},your age is {this.state.age}</div>
-                  <button onClick={this.onMakeOlder.bind(this)} className='btn btn-primary'>Make me older</button>
                   <p>{this.state.status}</p>  
+                  <button onClick={this.onMakeOlder.bind(this)} className='btn btn-primary'>Make me older</button>
+                  <hr/>
+                  {/* <button onClick={this.props.greet} className="btn btn-primary">Greet</button> */}
+                  <button onClick={this.handleGreet.bind(this)} className="btn btn-primary">Greet</button>
+                  <hr/>
+                  <input type="text" 
+                         defaultValue={this.props.initialName} 
+                         value={this.state.initialName} 
+                         onChange={(event)=>this.onHandleChange(event)}/>
+                  <button onClick={this.onChangeLink.bind(this)} className="btn btn-primary">Changed Header Link</button>
               </div>
           </div>
       </div>
@@ -47,4 +70,6 @@ Home.propTypes={
   name:PropTypes.string,
   age:PropTypes.number,
   user:PropTypes.object,
+  greet:PropTypes.func,
+  initialName:PropTypes.string
 }
