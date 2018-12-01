@@ -10,7 +10,6 @@ export default class Home extends Component {
      * props是从父对象传递过来的
      */
     super(props);
-    console.log(props);
     this.state={
       age:props.initialAge,
       status:0
@@ -26,7 +25,11 @@ export default class Home extends Component {
       age:this.state.age+3
     })
   }
-  
+  //将子组件的数据传递给父组件
+  handleGreet(){
+    //这里是从父组件传递过来的方法
+    this.props.greet(this.state.age);
+  }
   render() {
     console.log(this);
     return (
@@ -34,8 +37,11 @@ export default class Home extends Component {
           <div className="row">
               <div className="col-xs-1 col-xs-offset-11">
                   <div>Your name is {this.props.name},your age is {this.state.age}</div>
-                  <button onClick={this.onMakeOlder.bind(this)} className='btn btn-primary'>Make me older</button>
                   <p>{this.state.status}</p>  
+                  <button onClick={this.onMakeOlder.bind(this)} className='btn btn-primary'>Make me older</button>
+                  <hr/>
+                  {/* <button onClick={this.props.greet} className="btn btn-primary">Greet</button> */}
+                  <button onClick={this.handleGreet.bind(this)} className="btn btn-primary">Greet</button>
               </div>
           </div>
       </div>
@@ -47,4 +53,5 @@ Home.propTypes={
   name:PropTypes.string,
   age:PropTypes.number,
   user:PropTypes.object,
+  greet:PropTypes.func
 }
