@@ -41,6 +41,35 @@ export default class Home extends Component {
       homeLink:event.target.value
     })
   }
+
+  componentWillMount(){
+    console.log("Component will mount");
+  }
+
+  componentDidMount(){
+    console.log("Component did mount");
+  }
+
+  componentWillReceiveProps(nextProps) {
+    console.log('Component will update', nextProps);
+  }
+
+  shouldComponentUpdate(nextProps,nextState){
+    console.log('Component should update', nextProps,nextState);
+    return true;
+  }
+
+  componentWillUpdate(nextProps,nextState){
+      console.log('Component will update', nextProps,nextState);
+  }
+
+  componentDidUpdate(prevProps,prevStatus){
+      console.log('Component did update',prevProps,prevStatus);
+  }
+
+  componentWillUnmount(){
+    console.log('Component did Unmount');
+  }
   render() {
     console.log(this);
     return (

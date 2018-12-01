@@ -18,7 +18,6 @@
 import React from 'react';
 
 const Header=(props)=>{
-  console.log(props);//{}
   return (
       <div className="container">
           <div className="row">
