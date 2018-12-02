@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import Header from './components/Header';
 import Home from './components/Home'
 import './App.css';
-
+//生命周期:https://reactjs.org/docs/react-component.html
 class App extends Component {
     constructor(){
         super();
@@ -27,6 +27,10 @@ class App extends Component {
         })
     }
     render() {
+        const user={
+            name:"Anna",
+            hobbies:["Sports","Reading"]
+        }
         let homeCmp="";
         if(this.state.homeMounted){
             homeCmp=(<Home name={"Max"} 
@@ -36,10 +40,6 @@ class App extends Component {
                            changeLink={this.onChangeLinkName.bind(this)}
                            initialName={this.state.homeLink}/>
                            );
-        }
-        const user={
-            name:"Anna",
-            hobbies:["Sports","Reading"]
         }  
         return ( 
             <div className="container">

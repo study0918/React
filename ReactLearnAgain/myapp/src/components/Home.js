@@ -21,6 +21,7 @@ export default class Home extends Component {
         status:1
       })
     },3000)
+    console.log("constructor");
   }
   onMakeOlder(){
     this.setState({
@@ -43,35 +44,39 @@ export default class Home extends Component {
   }
 
   componentWillMount(){
-    console.log("Component will mount");
+    console.log("1.Component will mount");
   }
 
   componentDidMount(){
-    console.log("Component did mount");
+    console.log("2.Component did mount");
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('Component will update', nextProps);
+    console.log('3.Component will update', nextProps);
   }
 
   shouldComponentUpdate(nextProps,nextState){
-    console.log('Component should update', nextProps,nextState);
+    console.log('4.Component should update', nextProps,nextState);
+    if(nextState.status===1){
+      return false;
+    }
     return true;
   }
 
   componentWillUpdate(nextProps,nextState){
-      console.log('Component will update', nextProps,nextState);
+      console.log('5.Component will update', nextProps,nextState);
   }
 
   componentDidUpdate(prevProps,prevStatus){
-      console.log('Component did update',prevProps,prevStatus);
+      console.log('6.Component did update',prevProps,prevStatus);
   }
 
   componentWillUnmount(){
-    console.log('Component did Unmount');
+    console.log('7.Component did Unmount');
   }
   render() {
-    console.log(this);
+    //console.log(this);
+    console.log("render");
     return (
       <div className="container">
           <div className="row">
