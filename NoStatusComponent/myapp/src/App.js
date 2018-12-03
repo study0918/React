@@ -40,6 +40,36 @@ const Comment=(props,context)=>{
 Comment.contextTypes={
   color:PropTypes.string
 }
+
+const Hello=(props)=>{
+  return (
+    <p>{props.name}</p>
+  )
+}
+
+/**
+ * 高阶函数:
+ * 1.高阶函数是函数
+ * 2.高阶函数的参数是一个组件
+ * 3.高阶函数的返回值是一个包裹后的组件
+ */
+const PropsLogger=(WrapperComponent)=>{
+  return class extends Component{
+    //既然返回的是组件，组件都有render方法
+    render(){
+      return <WrapperComponent {...this.props}/>
+    }
+  }
+}
+//如何使用高阶组件呢,这里给WrapperComponent传的值就是Hello这个组件
+//World是一个高阶组件，给world传递了一个属性name为rails366的值，rails366是高阶组件的值
+//props的值是高阶组件，传递给包裹后的组件的时候使用...this.props进行传递
+const World=PropsLogger((props)=>{
+  return (
+    <p>Hello {props.name}</p>
+  )
+})
+//
 class App extends Component {
   //定义传递内容是一个对象，内容为color:red
   getChildContext(props){
@@ -88,6 +118,8 @@ class App extends Component {
             <Item/>
         </ul>
         <Topic/>
+        <Hello name="rails365"/>
+        <World name="rails366"/>
       </div>
     );
   }
