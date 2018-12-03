@@ -1,6 +1,7 @@
-import React, { Component ,PureComponent} from 'react';
+import React, { Component ,PureComponent,Fragment} from 'react';
 import logo from './logo.svg';
 import './App.css';
+import PropTypes from 'prop-types';
 
 //书写一个无状态组件
 class Temp extends PureComponent{
@@ -11,7 +12,39 @@ class Temp extends PureComponent{
   );
   }
 }
+
+const Item =(props)=>{
+  return (
+    <Fragment>
+      <li>list1</li>
+      <li>list2</li>
+    </Fragment>
+  )
+}
+
+const Topic=(props)=>{
+  return (
+    <div>
+      <Comment/>
+    </div>
+  )
+}
+const Comment=(props,context)=>{
+  console.log(props);
+  console.log(context);
+  return (
+    <div>{context.color}</div>
+  )
+}
+
+Comment.contextTypes={
+  color:PropTypes.string
+}
 class App extends Component {
+  //定义传递内容是一个对象，内容为color:red
+  getChildContext(props){
+    return {color:"red"};
+  }
   state={
     val:1
   }
@@ -32,7 +65,8 @@ class App extends Component {
   //   )
   // }
   render() {
-    console.log("render App")
+    console.log("render App");
+    console.log(this);
     return (
       <div className="App">
         <header className="App-header">
@@ -50,9 +84,15 @@ class App extends Component {
           </a>
           <Temp val={this.state.val}/>
         </header>
+        <ul className="App">
+            <Item/>
+        </ul>
+        <Topic/>
       </div>
     );
   }
 }
-
+App.childContextTypes={
+  color:PropTypes.string,
+}
 export default App;
