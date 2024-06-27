@@ -1,14 +1,12 @@
-import { all, delay, put, takeEvery } from "redux-saga/effects";
+import { all, delay, call, put, takeEvery } from "redux-saga/effects";
 
 export function* helloSaga() {
   console.log("Hello Saga!");
 }
 
 export function* incrementAsync() {
-  yield delay(1000);
-  yield put({
-    type: "INCREMENT",
-  });
+  yield call(delay, 1000);
+  yield put({ type: "INCREMENT" });
 }
 
 function* watchIncrementAsync() {
