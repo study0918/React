@@ -5,7 +5,8 @@ export function* helloSaga() {
 }
 
 export function* incrementAsync() {
-  yield call(delay, 1000);
+  // use the call Effect
+  yield delay(1000);
   yield put({ type: "INCREMENT" });
 }
 
@@ -14,5 +15,5 @@ function* watchIncrementAsync() {
 }
 
 export default function* rootSaga() {
-  yield all([helloSaga(), watchIncrementAsync()]);
+  yield all([helloSaga(), call(watchIncrementAsync)]);
 }
