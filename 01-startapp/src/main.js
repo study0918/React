@@ -28,9 +28,19 @@ const parentMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000 });
 let parentCube = new THREE.Mesh(geometry, parentMaterial);
 const cube = new THREE.Mesh(geometry, material)
 parentCube.add(cube)
-parentCube.position.set(-3,0,0)
+parentCube.position.set(-3, 0, 0)
+
+parentCube.rotation.x = Math.PI / 4;
+
+// parentCube.scale.set(2,2,2)
 // cube.position.x = 2;
-cube.position.set(3,0,0)
+cube.position.set(3, 0, 0)
+// 设置立方体放大
+// cube.scale.set(2,2,2)
+
+// 绕着X轴旋转
+cube.rotation.x = Math.PI / 4;
+
 // 将网格添加道场景中
 // scene.add(cube);
 scene.add(parentCube);
