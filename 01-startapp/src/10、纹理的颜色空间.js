@@ -7,10 +7,7 @@ import { GUI } from "three/examples/jsm/libs/lil-gui.module.min.js";
 // 导入hdr加载器
 import { RGBELoader } from "three/examples/jsm/loaders/RGBELoader.js";
 import { color } from "three/examples/jsm/nodes/Nodes.js";
-// 导入gltf加载器
-import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
-// 导入draco解码器
-import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader.js";
+
 // 创建场景
 const scene = new THREE.Scene();
 
@@ -64,53 +61,69 @@ window.addEventListener("resize", () => {
   // 更新相机投影矩阵
   camera.updateProjectionMatrix();
 });
+// 创建纹理加载器
+let textureLoader = new THREE.TextureLoader();
+// 加载纹理
+let texture = textureLoader.load("./texture/watercover/CityNewYork002_COL_VAR1_1K.png")
 
-// 创建场景fog
-// scene.fog = new THREE.Fog(0x999999, 0.1, 50)
+// 改成rgb模式
+texture.colorSpace = THREE.SRGBColorSpace
+// 改成线性模式
+// texture.colorSpace = THREE.LinearSRGBColorSpace
+//  不设置，默认线性模式
+// texture.colorSpace = THREE.NoColorSpace
+// ao贴图
+let aoMap = textureLoader.load("./texture/watercover/CityNewYork002_AO_1K.jpg")
+// 透明度贴图
+// let alphaMap = textureLoader.load("./texture/door/height.jpg")
+// 光照贴图
+let lightMap = textureLoader.load("./texture/colors.png")
 
-// 创建场景指数fog
-// scene.fog = new THREE.FogExp2(0x999999, 0.1);
-// scene.background = new THREE.Color(0x999999)
-
-const gui = new GUI();
-
-// 实例化加载器
-const gltfLoader = new GLTFLoader();
-
-// 加载模型
-gltfLoader.load(
-  // 模型路径
-  "./model/Duck.glb",
-  // 加载完成回调
-  (gltf) => {
-    console.log(gltf)
-    scene.add(gltf.scene)
-  }
-)
-
-// 实例化加载器draco
-const dracoLoader = new DRACOLoader()
-// 设置draco路径
-dracoLoader.setDecoderPath("./draco/");
-// 设置gltf加载器draco解码器
-gltfLoader.setDRACOLoader(dracoLoader);
-
-gltfLoader.load(
-  // 模型路径
-  "./model/city.glb",
-  // 加载完成回调
-  (gltf) => {
-    console.log(gltf)
-    scene.add(gltf.scene)
-  }
-)
-
+// 光照贴图
+let specularMap = textureLoader.load("./texture/watercover/CityNewYork002_GLOSS_1K.jpg")
 
 // rgbeloader 加载hdr贴图
 let rgbeLoader = new RGBELoader();
 rgbeLoader.load("./texture/Alex_Hart-Nature_Lab_Bones_2k.hdr", (envMap) => {
-  // 球形环射才有光
-   envMap.mapping = THREE.EquirectangularReflectionMapping
+  // 设置球形映射
+  envMap.mapping = THREE.EquirectangularReflectionMapping
   // 设置环境贴图
+  scene.background = envMap;
+    // 设置环境贴图
   scene.environment = envMap;
+  // 设置plane的环境贴图
+  planeMaterial.envMap = envMap
+})
+let planeGeometry = new THREE.PlaneGeometry(1, 1)
+let planeMaterial = new THREE.MeshBasicMaterial({
+  color: 0xffffff,
+  map: texture,
+  // 允许透明
+  transparent: true,
+  // 设置ao贴图
+  aoMap: aoMap,
+  aoMapIntensity:1,// 强度
+  // 透明度贴图
+  // alphaMap: alphaMap,
+  // 光照贴图
+  // lightMap:lightMap,
+  // 反射强度
+  // reflectivity:0.1,
+  // 高光贴图
+  specularMap: specularMap,
+  reflectivity:0.5
+})
+
+// planeMaterial.map = texture
+let plane = new THREE.Mesh(planeGeometry, planeMaterial)
+scene.add(plane)
+
+const gui = new GUI();
+gui.add(planeMaterial, "aoMapIntensity").min(0).max(1)
+gui.add(texture, 'colorSpace', {
+  sRGB: THREE.SRGBColorSpace,
+  Linear:THREE.LinearSRGBColorSpace
+}).onChange(() => {
+  // 需要手动设置更新才会更新
+  texture.needsUpdate = true
 })
