@@ -50,7 +50,10 @@ const vertices = new Float32Array([
 geometry.setAttribute('position', new THREE.BufferAttribute(vertices, 3))
 // 创建索引
 const indices = new Uint16Array([0, 1, 2, 2, 3, 0])
-geometry.setIndex(new THREE.BufferAttribute(indices,1))
+geometry.setIndex(new THREE.BufferAttribute(indices, 1))
+// 设置2个顶点组，形成2个材质
+geometry.addGroup(0, 3, 0) // start,count,index
+geometry.addGroup(3, 3, 1) 
 console.log(geometry)
 // 创建材质
 const material = new THREE.MeshBasicMaterial({
@@ -58,8 +61,12 @@ const material = new THREE.MeshBasicMaterial({
   // side:THREE.DoubleSide
   wireframe:true // 线框
 })
+
+const material1 = new THREE.MeshBasicMaterial({
+  color: 0xff0000,
+})
 // 创建平面
-const plane = new THREE.Mesh(geometry, material)
+const plane = new THREE.Mesh(geometry, [material,material1])
 scene.add(plane)
 // 设置相机位置
 camera.position.z = 5;
