@@ -1,8 +1,6 @@
 import * as THREE from 'three'
 // 导入轨道控制器
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
-// 导入lil.gui
-import {GUI}  from 'three/examples/jsm/libs/lil-gui.module.min.js'
 // 创建场景
 const scene = new THREE.Scene()
 
@@ -21,13 +19,11 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 
 document.body.appendChild(renderer.domElement)
 
-// 创建几何体
+// 创建几个体
 const geometry = new THREE.BoxGeometry(1, 1, 1)
 // 创建材质
 const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
 const parentMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000 });
-// 设置父元素材质为线框模式
-parentMaterial.wireframe = true;
 // 创建网格
 let parentCube = new THREE.Mesh(geometry, parentMaterial);
 const cube = new THREE.Mesh(geometry, material)
@@ -85,59 +81,30 @@ window.addEventListener('resize', () => {
   camera.aspect = window.innerWidth / window.innerHeight;
   // 更新相机投影矩阵
   camera.updateProjectionMatrix()
-});
-let eventObj = {
-  Fullscreen: function () {
+})
+
+var btn = document.createElement('button');
+btn.innerHTML = '点击全屏';
+btn.style.position = 'absolute';
+btn.style.top = '10px';
+btn.style.left = '10px';
+btn.style.zIndex = '999';
+btn.onclick = function () {
   // 全屏
   document.body.requestFullscreen();
-  },
-  ExitFullscreen: function () {
-   document.exitFullscreen();
-  }
 }
 
-const gui = new GUI();
+document.body.appendChild(btn)
 
-// 添加按钮
-gui.add(eventObj, "Fullscreen").name("全屏")
-gui.add(eventObj, "ExitFullscreen").name("退出全屏")
-
-// 控制立方体的位置
-// -5 5 是控制范围
-// gui.add(cube.position, "x", -5, 5).name('立方体x轴位置')
-
-// 也可以这样写
-// gui.add(cube.position, "x").min(-10).max(10).step(1).name('立方体x轴位置')
-// gui.add(cube.position, "y").min(-10).max(10).step(1).name('立方体y轴位置')
-// gui.add(cube.position,"z").min(-10).max(10).step(1).name('立方体z轴位置')
-
-// 创建文件夹
-// let folder = gui.addFolder("立方体位置")
-// folder.add(cube.position, "x").min(-10).max(10).step(1).name('立方体x轴位置')
-// folder.add(cube.position, "y").min(-10).max(10).step(1).name('立方体y轴位置')
-// folder.add(cube.position,"z").min(-10).max(10).step(1).name('立方体z轴位置')
-
-// 监听事件
-let folder = gui.addFolder("立方体位置")
-folder.add(cube.position, "x").min(-10).max(10).step(1).name('立方体x轴位置').onChange((val) => {
-  // 改变即触发
-  console.log('立方体x轴位置',val)
-})
-folder.add(cube.position, "y").min(-10).max(10).step(1).name('立方体y轴位置').onFinishChange((val) => {
-    // 操作完成再触发
-    console.log('立方体y轴位置',val)
-})
-folder.add(cube.position, "z").min(-10).max(10).step(1).name('立方体z轴位置')
-
-// 快速切换父元素的材质模式
-gui.add(parentMaterial, "wireframe").name("父元素线框模式")
-
-// 调试颜色
-let colorParams = {
-  cubeColor:"#ff0000",
+// 退出全屏
+var exitBtn = document.createElement('button');
+exitBtn.innerHTML = '退出全屏';
+exitBtn.style.position = 'absolute';
+exitBtn.style.top = '10px';
+exitBtn.style.left = '100px';
+exitBtn.style.zIndex = '999';
+exitBtn.onclick = function () {
+  document.exitFullscreen();
 }
 
-
-gui.addColor(colorParams, "cubeColor"). name("立方体颜色").onChange((val) => {
-  cube.material.color.set(val)
-})
+document.body.appendChild(exitBtn)
