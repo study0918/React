@@ -19,47 +19,17 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 
 document.body.appendChild(renderer.domElement)
 
-// 创建几何体
-const cubegeometry = new THREE.BoxGeometry(1, 1, 1);
-console.log(cubegeometry)
-// 创建材质
-const cubematerial0 = new THREE.MeshBasicMaterial({
-  color: 0x00ff00,
-  // wireframe:true // 线框
-})
-const cubematerial1 = new THREE.MeshBasicMaterial({
-  color: 0xff0000,
-})
+// // // 创建几何体
+// const geometry = new THREE.BoxGeometry(1, 1, 1)
+// // 创建材质
+// const material = new THREE.MeshBasicMaterial({ color: 0x00ff00,Wireframe:true });
 
-const cubematerial2 = new THREE.MeshBasicMaterial({
-  color: 0x0000ff,
-})
+// const cube = new THREE.Mesh(geometry, material)
 
-const cubematerial3 = new THREE.MeshBasicMaterial({
-  color: 0xff0000,
-})
+// console.log(geometry)
 
-const cubematerial4 = new THREE.MeshBasicMaterial({
-  color: 0x00ffff,
-})
-
-const cubematerial5 = new THREE.MeshBasicMaterial({
-  color: 0xff00ff,
-})
-const cube = new THREE.Mesh(cubegeometry, [
-  cubematerial0,
-  cubematerial1,
-  cubematerial2,
-  cubematerial3,
-  cubematerial4,
-  cubematerial5
-])
-
-console.log(cubegeometry)
-
-cube.position.x = 2;
-// 将网格添加到场景中
-scene.add(cube)
+// // 将网格添加到场景中
+// scene.add(cube)
 
 // 创建几何体
 const geometry = new THREE.BufferGeometry();
