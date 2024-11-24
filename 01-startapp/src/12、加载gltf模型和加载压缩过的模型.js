@@ -11,9 +11,6 @@ import { color } from "three/examples/jsm/nodes/Nodes.js";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 // 导入draco解码器
 import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader.js";
-// 导入tween
-// import { Tween } from "three/examples/jsm/libs/tween.module.js";
-import * as TWEEN  from "three/examples/jsm/libs/tween.module.js";
 // 创建场景
 const scene = new THREE.Scene();
 
@@ -31,7 +28,7 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
 // 设置相机位置
-camera.position.z = 15;
+camera.position.z = 5;
 camera.position.y = 2;
 camera.position.x = 2;
 camera.lookAt(0, 0, 0);
@@ -55,8 +52,6 @@ function animate() {
   requestAnimationFrame(animate);
   // 渲染
   renderer.render(scene, camera);
-  // 更新tween
-  TWEEN.update()
 }
 animate();
 
@@ -70,64 +65,52 @@ window.addEventListener("resize", () => {
   camera.updateProjectionMatrix();
 });
 
+// 创建场景fog
+// scene.fog = new THREE.Fog(0x999999, 0.1, 50)
+
+// 创建场景指数fog
+// scene.fog = new THREE.FogExp2(0x999999, 0.1);
+// scene.background = new THREE.Color(0x999999)
+
 const gui = new GUI();
 
-// 创建三个球
+// 实例化加载器
+const gltfLoader = new GLTFLoader();
 
-const sphere1 = new THREE.Mesh(
-  new THREE.SphereGeometry(1, 32, 32),
-  new THREE.MeshBasicMaterial({
-    color:0x00FF00
-  })
+// 加载模型
+gltfLoader.load(
+  // 模型路径
+  "./model/Duck.glb",
+  // 加载完成回调
+  (gltf) => {
+    console.log(gltf)
+    scene.add(gltf.scene)
+  }
 )
 
-sphere1.position.x = -4;
-scene.add(sphere1)
+// 实例化加载器draco
+const dracoLoader = new DRACOLoader()
+// 设置draco路径
+dracoLoader.setDecoderPath("./draco/");
+// 设置gltf加载器draco解码器
+gltfLoader.setDRACOLoader(dracoLoader);
 
-const tween = new TWEEN.Tween(sphere1.position)
-tween.to({ x: 4 }, 1000)
-tween.onUpdate(() => {
-  // console.log(sphere1.position.x)
-})
-// 设置循环无数次
-// tween.repeat(Infinity)
-// 循环往复
-// tween.yoyo(true)
-// tween.yoyo(2)
-// 延迟3秒
-// tween.delay(3000)
-// 设置缓动函数
-tween.easing(TWEEN.Easing.Quadratic.InOut)
-
-// 第二个动画
-const tween2 = new TWEEN.Tween(sphere1.position);
-tween2.to({ x: -4 }, 1000)
-
-tween.chain(tween2)
-tween2.chain(tween)
-// 启动补间动画
-tween.start()
-
-tween.onStart(() => {
-  console.log("开始")
-})
-
-tween.onComplete(() => {
-  console.log("结束")
-})
-
-tween.onStop(() => {
-  console.log("停止")
-})
-
-tween.onUpdate(() => {
-  console.log("更新")
-})
-
-let params = {
-  stop: function () {
-    tween.stop();
+gltfLoader.load(
+  // 模型路径
+  "./model/city.glb",
+  // 加载完成回调
+  (gltf) => {
+    console.log(gltf)
+    scene.add(gltf.scene)
   }
-}
+)
 
-gui.add(params,'stop')
+
+// rgbeloader 加载hdr贴图
+let rgbeLoader = new RGBELoader();
+rgbeLoader.load("./texture/Alex_Hart-Nature_Lab_Bones_2k.hdr", (envMap) => {
+  // 球形环射才有光
+   envMap.mapping = THREE.EquirectangularReflectionMapping
+  // 设置环境贴图
+  scene.environment = envMap;
+})

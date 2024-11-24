@@ -11,9 +11,6 @@ import { color } from "three/examples/jsm/nodes/Nodes.js";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 // 导入draco解码器
 import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader.js";
-// 导入tween
-// import { Tween } from "three/examples/jsm/libs/tween.module.js";
-import * as TWEEN  from "three/examples/jsm/libs/tween.module.js";
 // 创建场景
 const scene = new THREE.Scene();
 
@@ -55,8 +52,6 @@ function animate() {
   requestAnimationFrame(animate);
   // 渲染
   renderer.render(scene, camera);
-  // 更新tween
-  TWEEN.update()
 }
 animate();
 
@@ -69,6 +64,13 @@ window.addEventListener("resize", () => {
   // 更新相机投影矩阵
   camera.updateProjectionMatrix();
 });
+
+// 创建场景fog
+// scene.fog = new THREE.Fog(0x999999, 0.1, 50)
+
+// 创建场景指数fog
+// scene.fog = new THREE.FogExp2(0x999999, 0.1);
+// scene.background = new THREE.Color(0x999999)
 
 const gui = new GUI();
 
@@ -84,50 +86,55 @@ const sphere1 = new THREE.Mesh(
 sphere1.position.x = -4;
 scene.add(sphere1)
 
-const tween = new TWEEN.Tween(sphere1.position)
-tween.to({ x: 4 }, 1000)
-tween.onUpdate(() => {
-  // console.log(sphere1.position.x)
-})
-// 设置循环无数次
-// tween.repeat(Infinity)
-// 循环往复
-// tween.yoyo(true)
-// tween.yoyo(2)
-// 延迟3秒
-// tween.delay(3000)
-// 设置缓动函数
-tween.easing(TWEEN.Easing.Quadratic.InOut)
+const sphere2 = new THREE.Mesh(
+  new THREE.SphereGeometry(1, 32, 32),
+  new THREE.MeshBasicMaterial({
+    color:0x0000FF
+  })
+)
 
-// 第二个动画
-const tween2 = new TWEEN.Tween(sphere1.position);
-tween2.to({ x: -4 }, 1000)
+scene.add(sphere2)
 
-tween.chain(tween2)
-tween2.chain(tween)
-// 启动补间动画
-tween.start()
+const sphere3 = new THREE.Mesh(
+  new THREE.SphereGeometry(1, 32, 32),
+  new THREE.MeshBasicMaterial({
+    color:0xff00ff
+  })
+)
 
-tween.onStart(() => {
-  console.log("开始")
-})
+sphere3.position.x = 4;
+scene.add(sphere3)
 
-tween.onComplete(() => {
-  console.log("结束")
-})
+// 创建射线
+const raycaster = new THREE.Raycaster();
 
-tween.onStop(() => {
-  console.log("停止")
-})
+// 创建鼠标向量
+const mouse = new THREE.Vector2();
 
-tween.onUpdate(() => {
-  console.log("更新")
-})
-
-let params = {
-  stop: function () {
-    tween.stop();
+window.addEventListener("click", (event) => {
+  // console.log(event.clientX)
+  // console.log(event.clientY)
+  // 设置鼠标向量的x,y值
+  mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+  mouse.y = -((event.clientY / window.innerHeight) * 2 - 1)
+  // console.log(mouse.x,mouse.y)
+  // 通过摄像机和鼠标位置更新射线
+  raycaster.setFromCamera(mouse, camera);
+  // 计算物体和射线的焦点
+  console.log(scene.children)
+  // const intersects =  raycaster.intersectObjects(scene.children)
+  const intersects =  raycaster.intersectObjects([sphere1,sphere2,sphere3])
+  if (intersects.length > 0) {
+    if (intersects[0].object._isSelect) {
+      intersects[0].object.material.color.set(
+        intersects[0].object._originColor
+      )
+      intersects[0].object._isSelect = false
+      return
+    }
+    // 添加自定义属性
+    intersects[0].object._isSelect = true;
+    intersects[0].object._originColor = intersects[0].object.material.color.getHex();
+    intersects[0].object.material.color.set(0xff0000)
   }
-}
-
-gui.add(params,'stop')
+})
