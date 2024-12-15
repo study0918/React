@@ -76,7 +76,7 @@ export default {
 </script>
 
 <style scoped>
-#imageTableBox {
+#main {
   width: 100vw;
   height: 100vh;
 }
