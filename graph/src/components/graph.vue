@@ -11,7 +11,10 @@ import {
 } from 'echarts/components';
 import { PieChart } from 'echarts/charts';
 import { LabelLayout } from 'echarts/features';
+import { GraphChart } from 'echarts/charts';
 import { CanvasRenderer } from 'echarts/renderers';
+import { links } from './links';
+import { nodes } from './nodes';
 
 echarts.use([
   TitleComponent,
@@ -19,6 +22,7 @@ echarts.use([
   LegendComponent,
   PieChart,
   CanvasRenderer,
+  GraphChart,
   LabelLayout,
 ]);
 
@@ -34,36 +38,56 @@ export default {
       let option;
 
       option = {
-        title: {
-          text: 'Referer of a Website',
-          subtext: 'Fake Data',
-          left: 'center',
-        },
         tooltip: {
           trigger: 'item',
-        },
-        legend: {
-          orient: 'vertical',
-          left: 'left',
+          formatter: function (params) {
+            return params.name;
+          },
         },
         series: [
           {
-            name: 'Access From',
-            type: 'pie',
-            radius: '50%',
-            data: [
-              // 根据业务替换成动态数据
-              { value: 1048, name: 'Search Engine' },
-              { value: 735, name: 'Direct' },
-              { value: 580, name: 'Email' },
-              { value: 484, name: 'Union Ads' },
-              { value: 300, name: 'Video Ads' },
-            ],
+            type: 'graph',
+            layout: 'force',
+            data: nodes,
+            links: links,
+            label: {
+              show: true,
+              position: 'inside',
+              formatter: function (data) {
+                return data.name.slice(0, 4);
+              },
+            },
+            roam: true,
+            itemStyle: {
+              color: function (node) {
+                return node.data.color;
+              },
+              emphasis: {
+                borderWidth: 4,
+                shadowBlur: 15,
+                borderColor: '#fff',
+              },
+            },
+            symbolSize: function (param) {
+              if (param === 1) {
+                return 100;
+              } else if (param === 2) {
+                return 80;
+              } else {
+                return 60;
+              }
+            },
+            force: {
+              repulsion: 2000,
+            },
+            lineStyle: {
+              width: 1,
+              color: '#a0ccfb',
+            },
             emphasis: {
-              itemStyle: {
-                shadowBlur: 10,
-                shadowOffsetX: 0,
-                shadowColor: 'rgba(0, 0, 0, 0.5)',
+              focus: 'adjacency',
+              lineStyle: {
+                width: 10,
               },
             },
           },
