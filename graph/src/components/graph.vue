@@ -54,7 +54,8 @@ export default {
               show: true,
               position: 'inside',
               formatter: function (data) {
-                return data.name.slice(0, 4);
+                // return data.name.slice(0, 4);
+                return data.name;
               },
             },
             roam: true,
@@ -92,6 +93,38 @@ export default {
         ],
       };
       option && myChart.setOption(option);
+
+      // 所有高亮的节点
+      let currentDataIndex = [];
+      myChart.on('click', function (params) {
+        console.log('params', params);
+        let data = myChart.getModel().getSeriesByIndex(0).getData();
+        console.log('data', data);
+        // 当前被点击的node也需要高亮
+        // 需要判断是否被重复点击
+        if (!currentDataIndex.includes(params.dataIndex)) {
+          currentDataIndex.push(params.dataIndex);
+        }
+        // 根据当前点击的节点找到target
+        links.forEach((link) => {
+          if (link.source === params.name) {
+            nodes.forEach((node, idx) => {
+              if (node.name === link.target) {
+                // 判断是否已经被添加了
+                if (!currentDataIndex.includes(idx)) {
+                  currentDataIndex.push(idx);
+                }
+              }
+            });
+          }
+        });
+        // 高亮相关节点连线
+        myChart.dispatchAction({
+          type: 'highlight',
+          dataIndex: currentDataIndex,
+        });
+        console.log('currentDataIndex', currentDataIndex);
+      });
     },
   },
 };
