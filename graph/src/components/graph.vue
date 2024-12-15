@@ -58,16 +58,6 @@ export default {
               },
             },
             roam: true,
-            itemStyle: {
-              color: function (node) {
-                return node.data.color;
-              },
-              emphasis: {
-                borderWidth: 4,
-                shadowBlur: 15,
-                borderColor: '#fff',
-              },
-            },
             symbolSize: function (param) {
               if (param === 1) {
                 return 100;
@@ -88,6 +78,14 @@ export default {
               focus: 'adjacency',
               lineStyle: {
                 width: 10,
+              },
+              itemStyle: {
+                color: function (node) {
+                  return node.data.color;
+                },
+                borderWidth: 4,
+                shadowBlur: 15,
+                borderColor: '#fff',
               },
             },
           },
