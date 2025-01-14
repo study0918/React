@@ -1,16 +1,20 @@
 <template>
   <div id="app">
     <graph />
+    <!-- <pie></pie> -->
   </div>
 </template>
 
 <script>
-import graph from './components/graph.vue';
+// import graph from './components/graph.vue';
+// import pie from './components/pie.vue';
+import graph from './components/graph2.vue';
 
 export default {
   name: 'App',
   components: {
     graph,
+    // pie,
   },
 };
 </script>
