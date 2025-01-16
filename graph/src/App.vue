@@ -1,19 +1,21 @@
 <template>
   <div id="app">
-    <graph />
+    <!-- <graph /> -->
     <!-- <pie></pie> -->
+    <c-select></c-select>
   </div>
 </template>
 
 <script>
 // import graph from './components/graph.vue';
 // import pie from './components/pie.vue';
-import graph from './components/graph2.vue';
-
+// import graph from './components/graph2.vue';
+import cSelect from './components/cSelect.vue';
 export default {
   name: 'App',
   components: {
-    graph,
+    // graph,
+    cSelect,
     // pie,
   },
 };
