@@ -45,16 +45,17 @@ export default {
           label: {
             show: true,
             formatter: (params) => {
-              console.log('params', params, totalData[sid]);
+              // console.log('params', params, totalData[sid]);
               return ((params.value / totalData[sid]) * 100).toFixed(2) + '%';
             },
           },
           data: rawData[sid].map((d, did) => {
-            console.log('d', d);
+            console.log('d', totalData);
             return totalData[did] <= 0 ? 0 : d;
           }),
         };
       });
+      console.log('series', series);
       option = {
         legend: {
           selectedMode: false,

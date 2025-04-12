@@ -3,7 +3,8 @@
     <!-- <graph /> -->
     <!-- <pie></pie> -->
     <!-- <c-select></c-select> -->
-    <bar></bar>
+    <!-- <bar></bar> -->
+    <data-transfer></data-transfer>
   </div>
 </template>
 
@@ -12,14 +13,16 @@
 // import pie from './components/pie.vue';
 // import graph from './components/graph2.vue';
 // import cSelect from './components/cSelect.vue';
-import bar from './components/bar.vue';
+import dataTransfer from './components/dataTransfer.vue';
+// import bar from './components/bar.vue';
 export default {
   name: 'App',
   components: {
     // graph,
     // cSelect,
     // pie,
-    bar,
+    // bar,
+    dataTransfer,
   },
 };
 </script>
