@@ -4,7 +4,8 @@
     <!-- <pie></pie> -->
     <!-- <c-select></c-select> -->
     <!-- <bar></bar> -->
-    <data-transfer></data-transfer>
+    <!-- <data-transfer></data-transfer> -->
+    <scroll-select></scroll-select>
   </div>
 </template>
 
@@ -13,8 +14,9 @@
 // import pie from './components/pie.vue';
 // import graph from './components/graph2.vue';
 // import cSelect from './components/cSelect.vue';
-import dataTransfer from './components/dataTransfer.vue';
+// import dataTransfer from './components/dataTransfer.vue';
 // import bar from './components/bar.vue';
+import scrollSelect from './components/scrollSelect.vue';
 export default {
   name: 'App',
   components: {
@@ -22,7 +24,8 @@ export default {
     // cSelect,
     // pie,
     // bar,
-    dataTransfer,
+    // dataTransfer,
+    scrollSelect,
   },
 };
 </script>

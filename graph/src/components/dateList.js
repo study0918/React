@@ -55,6 +55,10 @@ export const oriList = [{
     "AdjAmt_Tm_Itrv_Dsc": '202421',
     "Cyc_TpCd": '02',
     "Core_Tp_Ind": '1'
+  }, {
+    "AdjAmt_Tm_Itrv_Dsc": '202422',
+    "Cyc_TpCd": '02',
+    "Core_Tp_Ind": '1'
   }],
   "third_Grp": [{
     "AdjAmt_Tm_Itrv_Dsc": '20252',
