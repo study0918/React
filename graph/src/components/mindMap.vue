@@ -252,6 +252,74 @@ const render = () => {
   graph.centerContent();
 };
 
+const findItem = (obj, id) => {
+  if (obj.id === id) {
+    return {
+      parent: null,
+      node: obj,
+    };
+  }
+  const { children } = obj;
+  if (children) {
+    for (let i = 0, len = children.length; i < len; i += 1) {
+      const res = findItem(children[i], id);
+      if (res) {
+        return {
+          parent: res.parent || obj,
+          node: res.node,
+        };
+      }
+    }
+  }
+  return null;
+};
+
+const addChildNode = (id, type) => {
+  const res = findItem(data, id);
+  const dataItem = res?.node;
+  if (dataItem) {
+    let item = null;
+    const length = dataItem.children ? dataItem.children.length : 0;
+    if (type === 'topic') {
+      item = {
+        id: `${id}-${length + 1}`,
+        type: 'topic-branch',
+        label: `分支主题${length + 1}`,
+        width: 100,
+        height: 40,
+      };
+    } else if (type === 'topic-branch') {
+      item = {
+        id: `${id}-${length + 1}`,
+        type: 'topic-child',
+        label: `子主题${length + 1}`,
+        width: 60,
+        height: 30,
+      };
+    }
+    if (item) {
+      if (dataItem.children) {
+        dataItem.children.push(item);
+      } else {
+        dataItem.children = [item];
+      }
+      return item;
+    }
+  }
+  return null;
+};
+
+const removeNode = (id) => {
+  const res = findItem(data, id);
+  const dataItem = res?.parent;
+  if (dataItem && dataItem.children) {
+    const { children } = dataItem;
+    const index = children.findIndex((item) => item.id === id);
+    return children.splice(index, 1);
+  }
+  return null;
+};
+
 onMounted(() => {
   graph = new Graph({
     container: document.getElementById('container'),
@@ -261,6 +329,38 @@ onMounted(() => {
   });
   graph.use(new Selection());
   graph.use(new Keyboard());
+  graph.on('add:topic', ({ node }) => {
+    const { id } = node;
+    const type = node.prop('type');
+    if (addChildNode(id, type)) {
+      render();
+    }
+  });
+  graph.bindKey(['backspace', 'delete'], () => {
+    const selectedNodes = graph
+      .getSelectedCells()
+      .filter((item) => item.isNode());
+    if (selectedNodes.length) {
+      const { id } = selectedNodes[0];
+      if (removeNode(id)) {
+        render();
+      }
+    }
+  });
+
+  graph.bindKey('tab', (e) => {
+    e.preventDefault();
+    const selectedNodes = graph
+      .getSelectedCells()
+      .filter((item) => item.isNode());
+    if (selectedNodes.length) {
+      const node = selectedNodes[0];
+      const type = node.prop('type');
+      if (addChildNode(node.id, type)) {
+        render();
+      }
+    }
+  });
   render();
 });
 </script>
