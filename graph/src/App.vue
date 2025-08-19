@@ -17,7 +17,7 @@
 // import cSelect from './components/cSelect.vue';
 // import dataTransfer from './components/dataTransfer.vue';
 // import bar from './components/bar.vue';
-import MindMap from './components/mindMap.vue';
+import MindMap from './components/mindMap/mindIndex.vue';
 // import scrollSelect from './components/scrollSelect.vue';
 export default {
   name: 'App',
