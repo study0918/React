@@ -5,23 +5,27 @@ import { GlobalContext } from './context';
 import { BrowserRouter } from 'react-router-dom';
 import RenderRouter from './routers/index';
 import './index.css';
-import './styles/variable.less';
-import './styles/common.less';
+import './styles/common.scss';
 import './styles/reset.css';
 
 function App() {
   const [lang, setLang] = useState('zh-CN');
   const [theme, setTheme] = useState('light');
-  const contextVal = { lang, setLang, theme, setTheme };
+  const contextVal = {
+    lang,
+    setLang,
+    theme,
+    setTheme,
+  };
   return (
     <div className="app-container">
       <ConfigProvider>
         <GlobalContext.Provider value={contextVal}>
           <BrowserRouter basename="/">
             <RenderRouter />
-          </BrowserRouter>
-        </GlobalContext.Provider>
-      </ConfigProvider>
+          </BrowserRouter>{' '}
+        </GlobalContext.Provider>{' '}
+      </ConfigProvider>{' '}
     </div>
   );
 }

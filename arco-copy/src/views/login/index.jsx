@@ -1,4 +1,4 @@
-import './login.less';
+import './login.scss';
 import {
   Form,
   Input,
