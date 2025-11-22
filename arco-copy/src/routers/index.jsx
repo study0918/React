@@ -1,12 +1,10 @@
 import { lazy, Suspense } from 'react';
 import { useRoutes } from 'react-router-dom';
-import RequireAuth from '../compontents/Auth';
-import LoadingComponent from '../compontents/Loading';
-import EmptyLayout from '../layout/emptyLayout';
-const Login = lazy(() => import('../views/login'));
-const load = (children) => (
-  <Suspense fallback={<LoadingComponent />}>{children}</Suspense>
-);
+import LoadingComponent from '@/compontents/Loading';
+import RequireAuth from '@/compontents/Auth';
+import EmptyLayout from '@/layout/emptyLayout';
+const load = (children) => <Suspense fallback={<LoadingComponent />}>{children}</Suspense>;
+const Login = lazy(() => import('@/views/login'));
 const requireEmptyLayout = () => (
   <RequireAuth>
     <EmptyLayout />
@@ -22,11 +20,11 @@ const routeList = [
         key: 'login',
         element: load(<Login />),
         meta: {
-          title: '登录',
-        },
-      },
-    ],
-  },
+          title: '登录'
+        }
+      }
+    ]
+  }
 ];
 const RenderRouter = () => {
   const element = useRoutes(routeList);

@@ -1,70 +1,107 @@
-# Getting Started with Create React App
+<div align="center"><img height="120px" src="https://gitee.com/hu-snail/arco-admin-template/raw/master/src/assets/logo/logo.svg"/></div>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<h1 align="center">Arco admin template</h1>
 
-## Available Scripts
+## 简介
 
-In the project directory, you can run:
+`Arco-admin-template`是一个免费开源的中后台模板你，使用了`React17`、`vite2`、`react-router-dom v6`、`less` 等主流技术开发，开箱即用的中后台前端解决方案。
 
-### `npm start`
+项目目的：
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- 学习`React Hook`相关 Api
+- 掌握`Vite2`插件机制、构建配置
+- 学习 `Ract-router-dom v6`新特性
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 特性
 
-### `npm test`
+- 技术栈：React17/React-router-dom v6/vite2
+- Javascript 版本
+- 可自定义主题
+- 国际化方案
+- Mock 数据方案
+- 暗夜模式
+- Arco Design UI 库
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 文档
 
-### `npm run build`
+正在编写中......
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 准备
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- `Node`: 版本建议 >= 12.0.0 [下载链接](https://nodejs.org/zh-cn/download/)
+- `Git`: [版本管理工具](https://www.git-scm.com/download)
+- `Visual Studio Code`: [最新版本](https://code.visualstudio.com/Download/)
+  - [Eslint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)- 脚本代码检查
+  - [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) - 代码格式化
+  - [Stylelin](https://marketplace.visualstudio.com/items?itemName=stylelint.vscode-stylelint) - css 格式化
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## 安装使用
 
-### `npm run eject`
+- 获取代码
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```sh
+git clone https://github.com/hu-snail/arco-admin-template.git
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- 安装依赖
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+```sh
+yarn install
+```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- 运行
 
-## Learn More
+```sh
+yarn dev
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- 打包
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```sh
+yarn build
+```
 
-### Code Splitting
+- 本地预览
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+```sh
+yarn preview
+```
 
-### Analyzing the Bundle Size
+## 预览截图
+- 登录页
+<img src="https://gitee.com/hu-snail/arco-admin-template/raw/master/src/assets/screenshot/login.png"/>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+- 仪表盘
+<img src="https://gitee.com/hu-snail/arco-admin-template/raw/master/src/assets/screenshot/work.png"/>
 
-### Making a Progressive Web App
+- 资源
+<img src="https://gitee.com/hu-snail/arco-admin-template/raw/master/src/assets/screenshot/res.png"/>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+- 按钮组件
+<img src="https://gitee.com/hu-snail/arco-admin-template/raw/master/src/assets/screenshot/comp-btn.png"/>
 
-### Advanced Configuration
+- 设置
+<img src="https://gitee.com/hu-snail/arco-admin-template/raw/master/src/assets/screenshot/setting.png"/>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+- 404
+<img src="https://gitee.com/hu-snail/arco-admin-template/raw/master/src/assets/screenshot/500.png"/>
 
-### Deployment
+## 浏览器支持
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+本地开发推荐使用`Chrome 80+` 浏览器
 
-### `npm run build` fails to minify
+支持现代浏览器, 不支持 IE
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## 维护者
+
+[@hu-snail](https://github.com/hu-snail/)
+
+## 捐赠
+
+如果你觉得这个项目对你有帮助，你可以帮作者买一杯咖啡表示支持!
+
+<div style="display: flex; justify-content: space-between;"><img  width="48%" src="https://gitee.com/hu-snail/vue3-admin-element-template/raw/master/src/assets/zfb.jpeg"/></div>
+
+## License
+
+[MIT © hu-snail-2021](https://github.com/hu-snail/arco-admin-template/blob/master/LICENSE)

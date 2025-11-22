@@ -1,19 +1,6 @@
-import './login.scss';
-import {
-  Form,
-  Input,
-  Button,
-  Space,
-  Checkbox,
-  Typography,
-} from '@arco-design/web-react';
-import {
-  IconUser,
-  IconSafe,
-  IconGithub,
-  IconWechat,
-  IconFile,
-} from '@arco-design/web-react/icon';
+import './login.less';
+import { Form, Input, Button, Space, Checkbox, Typography } from '@arco-design/web-react';
+import { IconUser, IconSafe, IconGithub, IconWechat, IconFile } from '@arco-design/web-react/icon';
 export default function Login() {
   const [form] = Form.useForm();
   const handleSubmit = async (formItem) => {
@@ -23,12 +10,8 @@ export default function Login() {
     <div className="login-wrap">
       <div className="login-left">
         <div className="login-left-content"></div>
-        <Typography.Title className="login-text">
-          ARCO ADMIN TEMPLATE
-        </Typography.Title>{' '}
-        <Typography.Text className="login-text">
-          点击右侧登录即可体验
-        </Typography.Text>
+        <Typography.Title className="login-text">ARCO ADMIN TEMPLATE</Typography.Title>{' '}
+        <Typography.Text className="login-text">点击右侧登录即可体验</Typography.Text>
         <div className="btn">
           <Space size={16}>
             <Button shape="round" type="primary" icon={<IconGithub />}>
@@ -50,11 +33,11 @@ export default function Login() {
           <Form
             form={form}
             wrapperCol={{
-              span: 24,
+              span: 24
             }}
             initialValues={{
               username: 'admin',
-              password: 123456,
+              password: 123456
             }}
             onSubmit={handleSubmit}
           ></Form>
