@@ -6,7 +6,8 @@
     <!-- <bar></bar> -->
     <!-- <data-transfer></data-transfer> -->
     <!-- <scroll-select></scroll-select> -->
-    <MindMap></MindMap>
+    <!-- <MindMap></MindMap> -->
+    <drag-able-ele></drag-able-ele>
   </div>
 </template>
 
@@ -17,8 +18,9 @@
 // import cSelect from './components/cSelect.vue';
 // import dataTransfer from './components/dataTransfer.vue';
 // import bar from './components/bar.vue';
-import MindMap from './components/mindMap/mindIndex.vue';
+// import MindMap from './components/mindMap/mindIndex.vue';
 // import scrollSelect from './components/scrollSelect.vue';
+import dragAbleEle from './components/dragAbleEle.vue';
 export default {
   name: 'App',
   components: {
@@ -28,7 +30,8 @@ export default {
     // bar,
     // dataTransfer,
     // scrollSelect,
-    MindMap,
+    // MindMap,
+    dragAbleEle,
   },
 };
 </script>
