@@ -4,6 +4,10 @@ import { ConfigProvider } from '@arco-design/web-react';
 import { GlobalContext } from './context';
 import { BrowserRouter } from 'react-router-dom';
 import RenderRouter from './routers/index';
+import './index.css';
+import './styles/variable.less';
+import './styles/common.less';
+import './styles/reset.css';
 
 function App() {
   const [lang, setLang] = useState('zh-CN');
