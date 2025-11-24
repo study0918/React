@@ -3,6 +3,7 @@ import { useRoutes } from 'react-router-dom';
 import LoadingComponent from '@/compontents/Loading';
 import RequireAuth from '@/compontents/Auth';
 import EmptyLayout from '@/layout/emptyLayout';
+
 const load = (children) => <Suspense fallback={<LoadingComponent />}>{children}</Suspense>;
 const Login = lazy(() => import('@/views/login'));
 const requireEmptyLayout = () => (
@@ -30,4 +31,5 @@ const RenderRouter = () => {
   const element = useRoutes(routeList);
   return element;
 };
+export const localRouters = routeList;
 export default RenderRouter;

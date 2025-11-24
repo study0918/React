@@ -1,10 +1,16 @@
 import './login.less';
 import { Form, Input, Button, Space, Checkbox, Typography } from '@arco-design/web-react';
 import { IconUser, IconSafe, IconGithub, IconWechat, IconFile } from '@arco-design/web-react/icon';
+import { useDispatch } from 'react-redux';
+import { loginHandler } from '@/store/actions/user';
+
 export default function Login() {
+  const dispatch = useDispatch();
   const [form] = Form.useForm();
+
   const handleSubmit = async (formItem) => {
-    //
+    console.log(formItem);
+    // await dispatch(loginHandler(formItem));
   };
   return (
     <div className="login-wrap">
@@ -40,7 +46,41 @@ export default function Login() {
               password: 123456
             }}
             onSubmit={handleSubmit}
-          ></Form>
+          >
+            <Space direction="vertical" size={10}>
+              <Form.Item
+                field="username"
+                rules={[
+                  {
+                    required: true,
+                    message: '用户名不能为空'
+                  }
+                ]}
+              >
+                <Input prefix={<IconUser />} placeholder="请输入用户名" />
+              </Form.Item>
+              <Form.Item
+                field="password"
+                rules={[
+                  {
+                    required: true,
+                    message: '密码不能为空'
+                  }
+                ]}
+              >
+                <Input.Password prefix={<IconSafe />} placeholder="请输入密码" />
+              </Form.Item>
+              <Form.Item className="forget-pwd">
+                <Checkbox>记住密码</Checkbox>
+                <Button type="text">忘记密码</Button>
+              </Form.Item>
+              <Form.Item>
+                <Button type="primary" shape="round" htmlType="submit" long>
+                  登 录
+                </Button>
+              </Form.Item>
+            </Space>
+          </Form>
         </div>
       </div>
     </div>
