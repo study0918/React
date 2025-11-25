@@ -1,16 +1,22 @@
-import './login.less';
 import { Form, Input, Button, Space, Checkbox, Typography } from '@arco-design/web-react';
 import { IconUser, IconSafe, IconGithub, IconWechat, IconFile } from '@arco-design/web-react/icon';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { loginHandler } from '@/store/actions/user';
+import './login.less';
+import store from '@/store';
 
 export default function Login() {
   const dispatch = useDispatch();
   const [form] = Form.useForm();
+  const navigate = useNavigate();
 
   const handleSubmit = async (formItem) => {
     console.log(formItem);
-    // await dispatch(loginHandler(formItem));
+    await dispatch(loginHandler(formItem));
+    console.log('store.getState()', store, store.getState());
+    const { accessToken } = store.getState().userReducer;
+    if (accessToken) navigate('/dashboard/workplace');
   };
   return (
     <div className="login-wrap">
