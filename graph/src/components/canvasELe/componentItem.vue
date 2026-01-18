@@ -79,6 +79,7 @@ const isSelected = ref(false); // 是否选中当前组件
 const dragComponent = ref(null); // 拖拽暂存组件
 const startPos = ref({ x: 0, y: 0 }); // 鼠标按下初始位置
 const compPos = ref({ x: 0, y: 0 }); // 组件初始位置
+let componentInfo = ref({ ...props.component });
 
 // 监听选中状态，同步外部选中的组件
 watch(
@@ -115,9 +116,9 @@ const handleMouseMove = (e) => {
   const newLeft = compPos.value.x + dx;
   const newTop = compPos.value.y + dy;
   // 更新组件位置，响应式同步到画布
-  props.component.style.left = Math.max(0, newLeft); // 边界处理，不超出画布左侧
-  props.component.style.top = Math.max(0, newTop); // 边界处理，不超出画布顶部
-  emit('update', props.component);
+  componentInfo.value.style.left = Math.max(0, newLeft); // 边界处理，不超出画布左侧
+  componentInfo.value.style.top = Math.max(0, newTop); // 边界处理，不超出画布顶部
+  emit('update', componentInfo.value);
 };
 
 // 4. 鼠标抬起 - 结束拖拽
@@ -138,8 +139,8 @@ const handleDrop = (e) => {
     // 修正嵌套组件的初始位置
     newComponent.style.left = 20;
     newComponent.style.top = 20;
-    props.component.children.push(newComponent);
-    emit('update', props.component);
+    componentInfo.value.children.push(newComponent);
+    emit('update', componentInfo.value);
     dragComponent.value = null;
     window.parent.dragComponent.value = null;
   }

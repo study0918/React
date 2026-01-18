@@ -101,12 +101,12 @@
 </template>
 
 <script setup>
-import { ref, reactive } from 'vue';
+import { ref } from 'vue';
 import componentItem from './componentItem.vue';
 
 // ================= 全局常量与数据 =================
 // 左侧组件库数据源
-const componentsList = reactive([
+const componentsList = ref([
   { type: 'text', name: '文本组件', icon: 'text' },
   { type: 'paragraph', name: '段落组件', icon: 'paragraph' },
   { type: 'button', name: '按钮组件', icon: 'button' },
@@ -114,7 +114,7 @@ const componentsList = reactive([
 ]);
 
 // 画布核心数据 - 存储所有组件，支持嵌套children
-const canvasData = reactive([]);
+const canvasData = ref([]);
 
 // 当前选中的组件
 const selectedComponent = ref(null);
@@ -134,7 +134,7 @@ const handleDrop = () => {
   // 创建新组件并生成唯一ID
   const newComponent = createNewComponent(dragComponent.value.type);
   // 追加到画布根节点
-  canvasData.push(newComponent);
+  canvasData.value.push(newComponent);
   dragComponent.value = null;
 };
 
@@ -194,7 +194,7 @@ const handleUpdateComponent = (updatedComponent) => {
     }
     return false;
   };
-  findAndUpdate(canvasData);
+  findAndUpdate(canvasData.value);
 };
 
 // 6. 删除组件
@@ -212,7 +212,7 @@ const handleDeleteComponent = (id) => {
     }
     return false;
   };
-  findAndDelete(canvasData);
+  findAndDelete(canvasData.value);
 };
 </script>
 
